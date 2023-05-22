@@ -1,24 +1,24 @@
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
-resource "aws_instance" "web" {
-  ami           = data.aws_ami.ubuntu.id
+resource "aws_instance" "mi-primera-instancia" {
+  ami           = "ami-04cbc90abb08f0321"
   instance_type = "t2.micro"
 
+  key_name = aws_key_pair.clave-ssh-curso.key_name
+
+  security_groups = ["default","permitir-ssh"]
+
   tags = {
-    Name = "HelloWorld"
+    Name = "mi-primera-instancia"
   }
+
+
+}
+
+output "public_ip" {
+  value = aws_instance.mi-primera-instancia.public_ip
+}
+
+resource "aws_key_pair" "clave-ssh-curso"{
+  key_name = "terraform-ssh"
+  public_key = file(var.AWS_PUBLIC_KEY)
+
 }
