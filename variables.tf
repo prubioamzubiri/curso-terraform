@@ -12,6 +12,12 @@ variable "AWS_PUBLIC_KEY"{
     default = "./curso-terraform.pub"
 }
 
-variable "PRUEBA"{
+variable "ubuntu-22-ami"{
+
+    type = map
+    default = {
+        us-east-1 = "ami-000215d5ae5531bb4"
+        us-east-2 = "ami-08fdd91d87f63bb09"
+    }
 
 }
