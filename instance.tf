@@ -1,10 +1,11 @@
 resource "aws_instance" "mi-primera-instancia" {
   ami           = data.aws_ami.Ubuntu_latest.id
   instance_type = "t2.micro"
+  
 
   key_name = aws_key_pair.clave-ssh-curso.key_name
 
-  security_groups = ["default","permitir-ssh"]
+  security_groups = ["default","permitir-ssh", aws_security_group.Mi-Primer-SG.name]
 
   tags = {
     Name = "mi-primera-instancia"
@@ -16,7 +17,7 @@ output "public_ip" {
 }
 
 resource "aws_key_pair" "clave-ssh-curso"{
-  key_name = "terraform-ssh"
+  key_name = "terraform-ssh-2"
   public_key = file(var.AWS_PUBLIC_KEY)
 
 }
@@ -34,9 +35,14 @@ data "aws_ami" "Ubuntu_latest"{
     
   }
 
+  filter {
+    name = "architecture"
+    values = ["x86_64"]
+  }
+
   filter{
     name = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-kinetic-22.10-arm64-server-*"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22*"]
 
   }
 
