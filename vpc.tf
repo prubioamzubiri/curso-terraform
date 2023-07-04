@@ -19,3 +19,14 @@ resource "aws_subnet" "subred-1"{
         name = "Subred 1"
     }
 }
+
+resource "aws_internet_gateway" "gateway-1" {
+
+    vpc_id = aws_vpc.primera-vpc.id
+
+
+    tags = {
+      name = "Gateway 1"
+    }
+  
+}
