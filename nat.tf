@@ -1,5 +1,5 @@
 resource "aws_eip" "external-ip" {
-    domain = "vpc"
+    vpc = "true"
 }
 
 resource "aws_nat_gateway" "mi-nat" {
