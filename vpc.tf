@@ -39,3 +39,8 @@ resource "aws_route_table" "tabla-de-enrutamiento"{
         gateway_id = aws_internet_gateway.gateway-1.id
     }
 }
+
+resource "aws_route_table_association" "asoc-public-1" {
+  subnet_id      = aws_subnet.subred-1.id
+  route_table_id = aws_route_table.tabla-de-enrutamiento.id
+}
