@@ -2,10 +2,10 @@ resource "aws_instance" "mi-primera-instancia" {
   ami           = data.aws_ami.Ubuntu_latest.id
   instance_type = "t2.micro"
   
+  vpc_security_group_ids = [aws_security_group.Mi-Primer-SG.name]
+  subnet_id = aws_subnet.subred-1.id
 
   key_name = aws_key_pair.clave-ssh-curso.key_name
-
-  security_groups = ["default","permitir-ssh", aws_security_group.Mi-Primer-SG.name]
 
   tags = {
     Name = "mi-primera-instancia"
